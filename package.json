@@ -1,0 +1,31 @@
+{
+  "name": "sbhacks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borisyue1/SBHacks.git"
+  },
+  "author": "Boris Yue, Holly Cheek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/borisyue1/SBHacks/issues"
+  },
+  "homepage": "https://github.com/borisyue1/SBHacks#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  }
+}
