@@ -7,8 +7,8 @@ module.exports = function() {
 
 
     require('./strategies/local.js')();
-    // require('./strategies/facebook.js')();
-    // require('./strategies/twitter.js')();
+    require('./strategies/facebook.js')();
+    require('./strategies/twitter.js')();
     
     //User.serialize/deserialize comes from passport-local-mongoose
 	passport.serializeUser(User.serializeUser());

@@ -29,12 +29,18 @@
 	        <li><a href="#">About</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	      	<% if(!currentUser) { %>
+				<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	        	<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	      	<% } else { %>
+	      		<li><a href="#">Hello, <%= currentUser %></a></li>
+	        	<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+	      	<% } %>
 	      </ul>
 	    </div>
 	  </div>
 	</nav>
+
 
 	<div id="paper-background">
 		<div class="container">
@@ -64,14 +70,8 @@
 		</div>
 	</div>
 
-	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-  		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  		crossorigin="anonymous"></script>
-  	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  	<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
-  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-	<script type="text/javascript" src="/js/ocr.js"></script>
+	<% include partials/scripts %>	
+
 
 
 </body>

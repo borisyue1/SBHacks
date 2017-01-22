@@ -17,4 +17,28 @@ router.post("/login", passport.authenticate("local", {
 	    // successFlash: "Successfully logged in!"
 	}));
 
+router.get("/logout", users.logout);
+
+//facebook auth
+router.get('/oauth/facebook', passport.authenticate('facebook', {
+    failureRedirect: '/login',
+    scope:['email']//provides access to email
+}));
+
+router.get('/oauth/facebook/callback', passport.authenticate('facebook', {
+    failureRedirect: '/login',
+    successRedirect: '/',
+    scope:['email']
+}));
+
+//twitter auth
+router.get('/oauth/twitter', passport.authenticate('twitter', {
+    failureRedirect: '/login'
+}));
+
+router.get('/oauth/twitter/callback', passport.authenticate('twitter', {
+    failureRedirect: '/login',
+    successRedirect: '/'
+}));
+
 module.exports = router;

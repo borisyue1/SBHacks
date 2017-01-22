@@ -26,3 +26,46 @@ exports.register = function(req, res) {
         }
     });
 }
+
+exports.logout = function(req, res) {
+    req.logout();//coming from passport
+    // req.flash("success", "Logged you out!"); //flash message
+    res.redirect("/");
+}
+
+exports.saveOAuthUserProfile = function(req, profile, done) {
+    User.findOne({
+            provider: profile.provider,
+            providerId: profile.providerId
+        },
+        function(err, user) {
+            if (err) {
+            return done(err);
+            }
+            else {
+                if (!user) {
+                    //if not registered yet, generate a unique username
+                    var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
+                    //profile username might not exist
+                    User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
+                        profile.username = availableUsername;
+                        user = new User(profile);//facebook profile
+                        //if username is unique, save the user
+                        user.save(function(err) {
+                            if (err) {
+                                var message = _this.getErrorMessage(err);
+                                // req.flash('error', message);
+                                return res.redirect('/register');
+                            }
+
+                            return done(err, user);
+                        });
+                    });
+                }
+                else {
+                    return done(err, user);
+                }
+            }
+        }
+    );
+};

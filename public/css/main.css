@@ -133,14 +133,6 @@ ol li p {
     opacity: 1.0 !important;
 }
 
-.darker-background {
-	background-color: #cccccc;
-}
-
-.lighter-background {
-	background-color: #e6e6e6;
-}
-
 hr {
     border: 0;
     height: 1px;
@@ -155,5 +147,14 @@ hr {
 }
 form input {
 	background-color: #f2f2f2 !important;
+}
+/*facebook and twitter links
+*/
+.text-center a {
+	color: #333;
+}
+.text-center a:hover {
+	color: #b3b3b3;
+	text-decoration: none !important;
 }
 
