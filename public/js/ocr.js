@@ -118,7 +118,7 @@ function animateCourseList(){
     var track = 0;
     $('h1').addClass('list-fade-in');
     $('h1').show();
-    $('#search li').each(function(i){
+    $('ol li').each(function(i){
         var $t = $(this);
         setTimeout(function(){
             $t.addClass('list-fade-in');
