@@ -6,27 +6,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Boris Yue">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 
 </head>
 <body>
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span> 
+	      </button>
+	      <a class="navbar-brand" href="#">SBHacks</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Home</a></li>
+	        <li><a href="#">Search</a></li>
+	        <li><a href="#">Saved Links</a></li> 
+	        <li><a href="#">About</a></li> 
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
 
-	 <input type="file" id="bannerImg">
-	 <input type="submit" onclick="imageToText()">
-	 <img src="" id="tableBanner">
+	<div id="search">
+		<div class="container">
+			<div class="row upload-row">
+				<div class="col upload-pic">
+					<input type="file" id="bannerImg">
+				</div>
+				<div class="col submit">
+					<button class="btn btn-primary" type="submit" onclick="imageToText()">Search for solutions</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-7 uploaded-pic">
+					<img src="" id="tableBanner">
+				</div>
+			</div>
 
-<!-- 	<video id="video" width="640" height="480" autoplay></video>
-	<button id="snap">Snap Photo</button>
-	<canvas id="canvas" width="640" height="480"></canvas> -->
-<!-- 	<img src="" id="mirror" width="640" height="480">
- -->
+			<div id="loading" class="row" >
+				<div id="analyze-caption" class="col">
+					<span>Analyzing and searching...</span>
+				</div>
+				<div id="spin-icon" class="col">
+				</div>
+			</div>
+			<h1>Results</h1>
+			<ol id="searches"></ol>
+		</div>
+	</div>
+
+	
+
+
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
   		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   		crossorigin="anonymous"></script>
-
+  	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   	<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
-
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 	<script type="text/javascript" src="/js/camera.js"></script>
 
+
+
+<!-- AIzaSyBrqwW2p8gI9QOmGCaOEOe680WP81_yRtU
+ -->
 
 </body>
 </html>

@@ -1,0 +1,150 @@
+/*body {
+	background-image: url('/img/background.jpg');
+	background-size: cover;
+}*/
+
+html,body {
+	height: 100%;
+}
+#search {
+	height: 100%;
+	background-image: url('/img/paper.jpg');
+	background-size: cover; 
+	overflow: scroll;
+}
+
+#spin-icon {
+	margin-left: 14%;
+	margin-top: -10px;
+}
+
+#analyze-caption {
+	text-align: center;
+	margin-right: 50px;
+}
+#analyze-caption span {
+	font-size: 15px;
+}
+
+.navbar {
+	border-radius: 0;
+	background-color: black;
+	opacity: 0.85;
+	margin-bottom: 0;
+
+}
+
+.upload-row {
+	background-color: #b3b3b3;
+	width: 55%;
+	height: 60px;
+	border-radius: 10px;
+	border: 1px solid #333;
+	text-align: center;
+	margin: 20px auto 10px auto;
+}
+
+.upload-pic {
+	display: inline;
+}
+
+.btn-primary {
+	background-color: #403f40;
+	border: #f8dfa0;
+	color: #ffe69e;
+}
+
+/*get rid of annoying bootstrap color change when clicked
+*/
+.btn-primary:visited, .btn-primary:active, .btn-primary:focus {
+    background-color: #403f40 !important;
+	border: #f8dfa0 !important;
+	color: #ffe69e !important;
+}
+.btn-primary:hover {
+	background-color: #ffe69e;
+	color: #403f40;
+}
+
+input[type=file] {
+	margin: 0;
+	margin-top: 18px;
+	margin-bottom: 5px;
+	display: inline;
+}
+
+#tableBanner {
+	width: 100%;
+	border-radius: 10px;
+}
+
+.submit {
+	margin-left: -6%;
+	display: inline-block;
+}
+.uploaded-pic {
+	padding: 0;
+	float: none;
+	margin: auto;
+	margin-bottom: 15px;
+	background-color: #b3b3b3;
+	border-radius: 10px;
+	border: 3px solid #333;
+}
+h1 {
+	text-align: center;
+}
+
+ol {
+	margin-top: 15px;
+	color: #333;
+}
+
+ol li {
+	margin-top: 10px;
+	border-radius: 3px;
+/*	border: 1px solid #333;
+*/	height: 80px;
+	opacity: 0.0;
+	padding: 8px;
+	border-left: 2px solid #333; 
+}
+
+ol li p {
+	margin-bottom: 0;
+    
+}
+
+.search-url {
+	color: #2d2d86;
+	font-style: italic;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0.0;
+    } to {
+        opacity: 1.0;
+    }
+}
+
+.list-fade-in {
+    animation: fade-in 1s;
+    opacity: 1.0 !important;
+}
+
+.darker-background {
+	background-color: #cccccc;
+}
+
+.lighter-background {
+	background-color: #e6e6e6;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+}
+
+

@@ -1,89 +1,18 @@
-// // Grab elements, create settings, etc.
-// var video = document.getElementById('video');
-// navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.getUserMedia; 
-// // Get access to the camera!
-// if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-//     // Not adding `{ audio: true }` since we only want video now
-//     navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-//         video.src = window.URL.createObjectURL(stream);
-//         video.play();
-//     });
-// }
-
-// // Elements for taking the snapshot
-// var canvas = document.getElementById('canvas');
-// var context = canvas.getContext('2d');
-// var video = document.getElementById('video');
-// var image = document.getElementById('mirror');
-
-// // Trigger photo take
-// document.getElementById("snap").addEventListener("click", function() {
-//     context.drawImage(video, 0, 0, 640, 480);
-//     var imageURL = canvas.toDataURL();//generating image url from the canvas
-    // Tesseract.recognize(canvas)
-    //     .then(function(result){
-    //         console.log(result)
-    //     });
-//     // imageToText(imageURL);
-
-// });
-
-// //converting image to text
-// function imageToText(url) {
-//     var base64 = url.replace(/^data:image\/(png|jpg);base64,/, "");
-//     var binaryUrl = binEncode(base64);
-//     console.log(binaryUrl);
-//     var params = {
-//             // Request parameters
-//             "language": "unk",
-//             "detectOrientation ": "true",
-//     };
-      
-//     $.ajax({
-//         url: "https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?" + $.param(params),
-//         beforeSend: function(xhrObj){
-//             // Request headers
-//             xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-//             xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","8e4e5171bf344c9db8eff364d3dc7b02");
-//         },
-//         type: "POST",
-//         // Request body
-//         data: binaryUrl,
-//     })
-//     .done(function(data) {
-//         console.log(data);
-//     })
-//     .fail(function(data) {
-//         console.log(data);
-//     });
-// }
-
-// function binEncode(data) {
-//     var binArray = []
-//     var datEncode = "";
-
-//     for (i=0; i < data.length; i++) {
-//         binArray.push(data[i].charCodeAt(0).toString(2)); 
-//     } 
-//     for (j=0; j < binArray.length; j++) {
-//         var pad = padding_left(binArray[j], '0', 8);
-//         datEncode += pad + ' '; 
-//     }
-//     function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
-//         return s;
-//     }
-//     var max = (n - s.length)/c.length;
-//     for (var i = 0; i < max; i++) {
-//         s = c + s; } return s;
-//     }
-//     console.log(binArray);
-// }
-
-
 // Get all variables
 var bannerImage = document.getElementById('bannerImg');
 var img = document.getElementById('tableBanner');
+//optimizaing spin loading icon
+var opts = {
+    length: 4,
+    radius: 4,
+    lines: 10,
+    width: 2,
+    position: 'relative'
+};
+var spinner = new Spinner(opts).spin()
 
+$('#loading').hide();
+$('h1').hide();
 // Add a change listener to the file input to inspect the uploaded file.
 bannerImage.addEventListener('change', function() {
     var file = this.files[0];
@@ -130,11 +59,81 @@ function fetchimage () {
 // put on tableBanner
 fetchimage();
 
-function imageToText(pic) {
-    // image.src = file.src;
+function imageToText() {
+    document.getElementById('spin-icon').appendChild(spinner.el)//loading spinner
+    $('#loading').show();
+    //ocr
     Tesseract.recognize(localStorage.getItem('imgData'))
         .then(function(result){
-            console.log(result)
+            // var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBrqwW2p8gI9QOmGCaOEOe680WP81_yRtU&cx=013715220301686714570:ci6pjtmohjy&q=" 
+            //     + result.text + "&callback=hndlr";
+            // var s = document.createElement("script");
+            // s.src = googleUrl;
+            // document.body.appendChild(s);
+            console.log(result.text);
+            bingSearch(result.text)
     });
 }
+function bingSearch(text) {
+    var params = {
+        // Request parameters
+        "q": text.substring(0, 1300),
+        "count": "7",
+        "offset": "0",
+        "mkt": "en-us",
+    };
+    $.ajax({
+        url: "https://api.cognitive.microsoft.com/bing/v5.0/search?" + $.param(params),
+        beforeSend: function(xhrObj){
+            // Request headers
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","ec0442b726ad46a09481e2668a54c647");
+        },
+        type: "GET",
+        // Request body
+        data: "{body}",
+    })
+    .done(function(data) {
+        $('#loading').hide();//hiding load caption
+        document.getElementById('spin-icon').removeChild(spinner.el);//remove spinner
+        bingCallback(data);
+        animateCourseList();
+    })
+    .fail(function(e) {
+        $('#loading').hide();
+        document.getElementById('spin-icon').removeChild(spinner.el);//remove spinner
+        alert("error");
+        console.log(e);
+    });
+}
+
+function bingCallback(response) {
+    document.getElementById("searches").innerHTML = "";
+    for (var i = 0; i < response.webPages.value.length; i++) {
+        var item = response.webPages.value[i];
+        //html to contain searches
+        document.getElementById("searches").innerHTML += "<li class='search-row'> <div class='search-title'><a href=" + item.url + " target=_blank>" + item.name + "</a></div> <div class='search-caption'><div class='search-url'>" + item.displayUrl + "</div><p>" + item.snippet + "</p></div></li>";
+    }
+}
+
+function animateCourseList(){
+    var track = 0;
+    $('h1').addClass('list-fade-in');
+    $('h1').show();
+    $('#search li').each(function(i){
+        var $t = $(this);
+        setTimeout(function(){
+            $t.addClass('list-fade-in');
+            $t.append("<hr>");
+        }, (i+1) * 150);
+    });
+}
+//callback for google search
+// function hndlr(response) {
+//     for (var i = 0; i < 5; i++) {
+//         console.log(response);
+//         var item = response.items[i];
+//         // in production code, item.htmlTitle should have the HTML entities escaped.
+//         document.getElementById("content").innerHTML += "<br>" + "<a href=" + item.link + " target=_blank>" + item.title + "</a>";
+//     }
+// }
 
