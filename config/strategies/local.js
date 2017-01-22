@@ -8,9 +8,6 @@ module.exports = function() {
     //User.authenticate comes from passport-local-mongoose
     // passport.use(User.createStrategy());//newer version
 
-    passport.use(new LocalStrategy({
-	    usernameField: 'email',
-	    passwordField: 'password'
-	  },User.authenticate()));
+    passport.use(new LocalStrategy(User.authenticate()));
 
 };
