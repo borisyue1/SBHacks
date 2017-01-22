@@ -70,7 +70,6 @@ function imageToText() {
             // var s = document.createElement("script");
             // s.src = googleUrl;
             // document.body.appendChild(s);
-            console.log(result.text);
             bingSearch(result.text)
     });
 }
@@ -127,13 +126,5 @@ function animateCourseList(){
         }, (i+1) * 150);
     });
 }
-//callback for google search
-// function hndlr(response) {
-//     for (var i = 0; i < 5; i++) {
-//         console.log(response);
-//         var item = response.items[i];
-//         // in production code, item.htmlTitle should have the HTML entities escaped.
-//         document.getElementById("content").innerHTML += "<br>" + "<a href=" + item.link + " target=_blank>" + item.title + "</a>";
-//     }
-// }
+
 

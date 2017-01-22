@@ -1,8 +1,9 @@
 //basically sets up the express application and then returns it
 //contains initialization code of our Express application
 var express = require('express'),
-    bodyParser = require('body-parser');
-    // passport = require('passport'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    passport = require('passport');
     // flash = require('connect-flash');//flash mesages
 
 module.exports = function() {
@@ -15,13 +16,14 @@ module.exports = function() {
 	app.set('view engine', 'ejs');
 	app.use(express.static('./public'));//to use image, example: <img src="img/logo.jpg">
 	//passport
-	// app.use(require("express-session")({
-	//     secret: "Boris is awesome",
-	//     resave: false,
-	//     saveUninitialized: false
-	// }));
-	// app.use(passport.initialize());
-	// app.use(passport.session());
+	app.use(cookieParser());
+	app.use(require("express-session")({
+	    secret: "Boris is awesome",
+	    resave: false,
+	    saveUninitialized: false
+	}));
+	app.use(passport.initialize());
+	app.use(passport.session());
 	// //flash
 	// app.use(flash());//flash messages
 	// app.use(function(req, res, next){
@@ -32,6 +34,6 @@ module.exports = function() {
 
 	//routes
     app.use(require('../app/routes/index.server.routes.js'));//creates the '/' route
-    // app.use(require('../app/routes/users.server.routes.js'));//using user routes
+    app.use(require('../app/routes/users.server.routes.js'));//using user routes
     return app; 
 };

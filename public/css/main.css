@@ -6,7 +6,7 @@
 html,body {
 	height: 100%;
 }
-#search {
+#paper-background {
 	height: 100%;
 	background-image: url('/img/paper.jpg');
 	background-size: cover; 
@@ -147,4 +147,13 @@ hr {
     background: #333;
 }
 
+/*login portion
+*/
+.box {
+	width: 70%;
+	margin: auto;
+}
+form input {
+	background-color: #f2f2f2 !important;
+}
 
