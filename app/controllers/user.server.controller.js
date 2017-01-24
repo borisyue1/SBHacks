@@ -124,7 +124,7 @@ exports.saveOAuthUserProfile = function(req, profile, done) {
                         user.save(function(err) {
                             if (err) {
                                 var message = _this.getErrorMessage(err);
-                                // req.flash('error', message);
+                                req.flash('error', message);
                                 return res.redirect('/register');
                             }
 
