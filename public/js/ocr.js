@@ -14,7 +14,7 @@ var opts = {
 var spinner = new Spinner(opts).spin()
 
 $('#loading').hide();
-$('h1').hide();
+$('#paper-background h1').hide();
 
 if(bannerImage) {
     // Add a change listener to the file input to inspect the uploaded file.
@@ -101,21 +101,27 @@ function bingSearch(text) {
     })
     .done(function(data) {
         console.log(data);
-        $('#loading').hide();//hiding load caption
-        document.getElementById('spin-icon').removeChild(spinner.el);//remove spinner
+        removeHeaderAndSpinner();
         bingCallback(data);
-        animateCourseList();
+        animateSearchList();
     })
     .fail(function(e) {
-        $('#loading').hide();
-        document.getElementById('spin-icon').removeChild(spinner.el);//remove spinner
+        removeHeaderAndSpinner();
         alert("error");
-        console.log(e);
     });
+}
+
+function removeHeaderAndSpinner() {
+    $('#loading').hide();//hiding load caption
+    document.getElementById('spin-icon').removeChild(spinner.el);//remove spinner
 }
 
 function bingCallback(response) {
     document.getElementById("searches").innerHTML = "";
+    if(!response.webPages) {
+        alert("Your search did not return any results. Try another picture.");
+        return;
+    }
     for (var i = 0; i < response.webPages.value.length; i++) {
         var item = response.webPages.value[i];
         item.snippet = item.snippet.substring(0, 160) + "...";
@@ -140,12 +146,10 @@ function bingCallback(response) {
 }
 
 
-
-
-function animateCourseList(){
+function animateSearchList(){
     var track = 0;
-    $('h1').addClass('list-fade-in');
-    $('h1').show();
+    $('#paper-background h1').addClass('list-fade-in');
+    $('#paper-background h1').show();
     $('ol li').each(function(i){
         var $t = $(this);
         setTimeout(function(){

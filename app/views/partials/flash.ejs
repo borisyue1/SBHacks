@@ -1,0 +1,11 @@
+<% if(error && error.length > 0){ %>
+    <div class="alert alert-danger fade in" role="alert">
+        <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+        <h1 class="flash"><%= error %></h1>
+    </div>
+<% } %>
+<% if(success && success.length > 0){ %>
+    <div class="alert alert-success fade in" role="alert">
+        <h1 class="flash"><%= success %></h1>
+    </div>
+<% } %>

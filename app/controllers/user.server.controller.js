@@ -36,7 +36,7 @@ exports.logout = function(req, res) {
 
 exports.renderLinks = function(req, res) {
 	if(!res.locals.currentUser) {
-		req.flash("failure", "You must be signed in to access this page.");
+		req.flash("error", "You must be signed in to access this page.");
 		res.redirect('/register')
 	}
 	res.render('saved', {title: "Saved Links"});
@@ -44,7 +44,7 @@ exports.renderLinks = function(req, res) {
 
 exports.saveLinks = function(req, res) {
 	if(!res.locals.currentUser) {
-		req.flash("failure", "You must be signed in to access this page.");
+		req.flash("error", "You must be signed in to access this page.");
 		res.redirect('/register');
 		return
 	}

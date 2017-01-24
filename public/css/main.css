@@ -1,10 +1,19 @@
-.alert {
+.alert-danger {
     height: 50px;
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+
+}
+.alert-success {
+	height: 50px;
+    background-color: #80ff80;
+    border-color: #80ff80;
 }
 .flash {
     font-size: 15px;
     font-weight: 400;
     margin: auto;
+    color:black;
 }
 
 body {
