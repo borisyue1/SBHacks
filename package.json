@@ -10,10 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/borisyue1/SBHacks.git"
   },
-  "author": "Boris Yue, Holly Cheek",
+  "author": "Boris Yue",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/borisyue1/SBHacks/issues"
+  },
+  "engines": {
+    "node": "6.9.1"
   },
   "homepage": "https://github.com/borisyue1/SBHacks#readme",
   "dependencies": {
