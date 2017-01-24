@@ -1,3 +1,4 @@
+
 // Get all variables
 var bannerImage = document.getElementById('bannerImg');
 var img = document.getElementById('tableBanner');
@@ -7,33 +8,38 @@ var opts = {
     radius: 4,
     lines: 10,
     width: 2,
-    position: 'relative'
+    position: 'relative',
+    color: '#ffe69e'
 };
 var spinner = new Spinner(opts).spin()
 
 $('#loading').hide();
 $('h1').hide();
-// Add a change listener to the file input to inspect the uploaded file.
-bannerImage.addEventListener('change', function() {
-    var file = this.files[0];
-    // Create a file reader
-    var fReader = new FileReader();
 
-    // Add complete behavior
-    fReader.onload = function() {
-        // Show the uploaded image to banner.
-        img.src = fReader.result;
+if(bannerImage) {
+    // Add a change listener to the file input to inspect the uploaded file.
+    bannerImage.addEventListener('change', function() {
+        var file = this.files[0];
+        // Create a file reader
+        var fReader = new FileReader();
 
-        // Save it when data complete.
-        // Use your function will ensure the format is png.
-        localStorage.setItem("imgData", fReader.result);
-        // You can just use as its already a string.
-        // localStorage.setItem("imgData", fReader.result);
-    };
+        // Add complete behavior
+        fReader.onload = function() {
+            // Show the uploaded image to banner.
+            img.src = fReader.result;
 
-    // Read the file to DataURL format.
-    fReader.readAsDataURL(file);
-});
+            // Save it when data complete.
+            // Use your function will ensure the format is png.
+            localStorage.setItem("imgData", fReader.result);
+            // You can just use as its already a string.
+            // localStorage.setItem("imgData", fReader.result);
+        };
+
+        // Read the file to DataURL format.
+        fReader.readAsDataURL(file);
+    });
+}
+
 //not using this right now
 function getBase64Image(img) {
     var canvas = document.createElement("canvas");
@@ -57,7 +63,10 @@ function fetchimage () {
 // Call fetch to get image from localStorage.
 // So each time you reload the page, the image in localstorage will be 
 // put on tableBanner
-fetchimage();
+if(img) {
+    fetchimage();
+}
+
 
 function imageToText() {
     document.getElementById('spin-icon').appendChild(spinner.el)//loading spinner
@@ -89,9 +98,9 @@ function bingSearch(text) {
         },
         type: "GET",
         // Request body
-        data: "{body}",
     })
     .done(function(data) {
+        console.log(data);
         $('#loading').hide();//hiding load caption
         document.getElementById('spin-icon').removeChild(spinner.el);//remove spinner
         bingCallback(data);
@@ -109,10 +118,29 @@ function bingCallback(response) {
     document.getElementById("searches").innerHTML = "";
     for (var i = 0; i < response.webPages.value.length; i++) {
         var item = response.webPages.value[i];
+        item.snippet = item.snippet.substring(0, 160) + "...";
         //html to contain searches
-        document.getElementById("searches").innerHTML += "<li class='search-row'> <div class='search-title'><a href=" + item.url + " target=_blank>" + item.name + "</a></div> <div class='search-caption'><div class='search-url'>" + item.displayUrl + "</div><p>" + item.snippet + "</p></div></li>";
+        document.getElementById("searches").innerHTML += "<li class='search-row'> <div class='search-title'><a href=" + item.url + " target=_blank>" + item.name + "</a></div> <div class='search-caption'><div class='search-url'>" + item.displayUrl + "</div><p>" + item.snippet + "<a href='#' class='star'><span class='glyphicon glyphicon-star'></span></a></p></div></li>";
     }
+    $('.star').click(function(){
+        // Get the modal
+        var modal = document.getElementById('save-form');
+        modal.style.display='block';
+        modal.style.width='auto';
+        var p = $(this).parent().parent().parent();
+        var url = p[0].children[0].children[0].href;
+        document.getElementById('link-field').value = url;//getting link
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }); 
 }
+
+
+
 
 function animateCourseList(){
     var track = 0;

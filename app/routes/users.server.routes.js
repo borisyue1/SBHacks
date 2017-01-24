@@ -11,10 +11,10 @@ router.get("/register", users.renderRegister);
 
 router.post("/register", users.register);
 router.post("/login", passport.authenticate("local", {
-	    successRedirect: "/",
+	    successRedirect: "/search",
 	    failureRedirect: "/login",
-	    // failureFlash: "Invalid username or password",
-	    // successFlash: "Successfully logged in!"
+	    failureFlash: "Invalid username or password",
+	    successFlash: "Successfully logged in!"
 	}));
 
 router.get("/logout", users.logout);
@@ -27,7 +27,7 @@ router.get('/oauth/facebook', passport.authenticate('facebook', {
 
 router.get('/oauth/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/login',
-    successRedirect: '/',
+    successRedirect: '/search',
     scope:['email']
 }));
 
@@ -38,7 +38,10 @@ router.get('/oauth/twitter', passport.authenticate('twitter', {
 
 router.get('/oauth/twitter/callback', passport.authenticate('twitter', {
     failureRedirect: '/login',
-    successRedirect: '/'
+    successRedirect: '/search'
 }));
+
+router.get('/saved', users.renderLinks);
+router.post('/saved', users.saveLinks);
 
 module.exports = router;

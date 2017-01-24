@@ -9,7 +9,10 @@ var UserSchema = new mongoose.Schema({
     	unique: true //unique username
     },
     password: String,
-    links: {},
+    links: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Link"
+    }],
     provider: String,
     providerId: String,
     providerData: {}

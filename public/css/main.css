@@ -1,29 +1,112 @@
-/*body {
+.alert {
+    height: 50px;
+}
+.flash {
+    font-size: 15px;
+    font-weight: 400;
+    margin: auto;
+}
+
+body {
 	background-image: url('/img/background.jpg');
 	background-size: cover;
-}*/
+}
 
 html,body {
 	height: 100%;
 }
+
+@font-face {
+    font-family: chalk;
+    src: url('/img/KGTenThousandReasons.ttf');
+}
+/*editing home page navbar
+*/
+#home-page {
+	background-color: transparent;
+	border: none;
+}
+.white {
+	color: white !important;
+	background-color: transparent !important;
+	font-size: 15px;
+}
+.white:hover {
+	color: #1a1a1a !important;
+}
+
+.navbar-brand {
+	margin-top: -1px;
+	font-size: 20px;
+}
+
+.row .header {
+	color: white;
+	font-size: 80px;
+	font-family: chalk;
+	text-align: center;
+	float: none;
+	margin-top: 130px;
+}
+.row .header-paragraph {
+	color: white;
+	font-size: 17px;
+	font-family: chalk;
+	text-align: center;
+	float: none;
+	margin-top: 20px;
+}
+.row .header-button {
+	text-align: center;
+	float: none;
+	margin-top: 25px;
+}
+.row .header-button a{
+	color: white !important;
+	font-size: 17px;
+	font-family: chalk;
+	border: 2px solid white;
+	padding: 10px;
+	
+}
+.row .header-button a:hover {
+	background-color: white;
+	color: #2d5986 !important;
+	text-decoration: none;
+}
+
 #paper-background {
 	height: 100%;
-	background-image: url('/img/paper.jpg');
+	background-image: url('/img/blue.png');
 	background-size: cover; 
 	overflow: scroll;
 }
 
 #spin-icon {
-	margin-left: 14%;
+	margin-left: 16%;
 	margin-top: -10px;
 }
 
 #analyze-caption {
 	text-align: center;
 	margin-right: 50px;
+	font-family: chalk;
+	font-style: bold;
 }
 #analyze-caption span {
 	font-size: 15px;
+	color: #ffe69e;
+}
+
+.search-title a:hover {
+	color: #3385ff;
+}
+.glyphicon-star {
+	position: relative;
+	margin-left: 3px;	
+	margin-top: -10px;
+	font-size: 26px;
+	color: #e6b800;
 }
 
 .navbar {
@@ -52,6 +135,8 @@ html,body {
 	background-color: #403f40;
 	border: #f8dfa0;
 	color: #ffe69e;
+	font-family: chalk;
+	font-size: 13px;
 }
 
 /*get rid of annoying bootstrap color change when clicked
@@ -92,31 +177,35 @@ input[type=file] {
 	border: 3px solid #333;
 }
 h1 {
+	color: #ffe69e;
 	text-align: center;
+	font-family: chalk;
 }
 
 ol {
 	margin-top: 15px;
-	color: #333;
+	color: #d9d9d9;
+
 }
 
 ol li {
-	margin-top: 10px;
+	margin-top: 15px;
 	border-radius: 3px;
 /*	border: 1px solid #333;
 */	height: 80px;
 	opacity: 0.0;
 	padding: 8px;
-	border-left: 2px solid #333; 
+	border-left: 2px solid #ffe69e; 
 }
 
 ol li p {
 	margin-bottom: 0;
+	font-style: bold;
     
 }
 
 .search-url {
-	color: #2d2d86;
+	color: #cc9966;
 	font-style: italic;
 }
 
@@ -136,7 +225,7 @@ ol li p {
 hr {
     border: 0;
     height: 1px;
-    background: #333;
+    background: #ffe69e;
 }
 
 /*login portion
@@ -158,3 +247,68 @@ form input {
 	text-decoration: none !important;
 }
 
+.link-header {
+	font-size: 45px;
+	color: black;
+	font-family: chalk;
+	margin-top: 25px;
+	text-align: center;
+	float: none;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s;
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0);} 
+    to {-webkit-transform: scale(1);}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0);} 
+    to {transform: scale(1);}
+}

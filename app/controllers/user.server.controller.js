@@ -1,6 +1,7 @@
 // handle all the requests for user related operations
 
 var User = require('mongoose').model('User');//user model created in users.server.model.js
+var link = require('mongoose').model('Link');
 var passport = require("passport");
 
 
@@ -8,7 +9,7 @@ exports.renderRegister = function(req, res) {
 	res.render('register', {title: 'Register'});
 }
 exports.renderLogin = function(req, res) {
-	res.render('login', {title: "Log In"});
+	res.render('login', {title: "Log In", errors: req.flash('error')});
 }
 
 exports.register = function(req, res) {
@@ -16,12 +17,12 @@ exports.register = function(req, res) {
     User.register(newUser, req.body.password, function(err, user){//only save username to database, not password
         //user object turns password into set of numbers and then stores in database
         if(err){
-            // req.flash("error", err.message);
+            req.flash("error", err.message);
             return res.render("register", {"error": err.message});
         } else {
         	passport.authenticate("local")(req, res, function(){//will log the user in with local strategy
-	            // req.flash("success", "Welcome, " + newUser.username + "!");
-	            res.redirect("/"); 
+	            req.flash("success", "Welcome, " + newUser.username + "!");
+	            res.redirect("/search"); 
         	});
         }
     });
@@ -29,9 +30,49 @@ exports.register = function(req, res) {
 
 exports.logout = function(req, res) {
     req.logout();//coming from passport
-    // req.flash("success", "Logged you out!"); //flash message
+    req.flash("success", "Logged you out!"); //flash message
     res.redirect("/");
 }
+
+exports.renderLinks = function(req, res) {
+	if(!res.locals.currentUser) {
+		req.flash("failure", "You must be signed in to access this page.");
+		res.redirect('/register')
+	}
+	res.render('saved', {title: "Saved Links"});
+}
+
+exports.saveLinks = function(req, res) {
+	if(!res.locals.currentUser) {
+		req.flash("failure", "You must be signed in to access this page.");
+		res.redirect('/register');
+		return
+	}
+	User.findById(req.params.id, function(err, user){
+		console.log(user);
+       if(err){
+           console.log(err);
+           res.redirect("/search");
+       } else {
+        link.create(req.body.info, function(err, foundLink){
+           if(err){
+               req.flash("error", "Something went wrong");
+               res.redirect('/search')
+           } else {
+               //add username and id to comment
+               foundLink.owner.id = req.user._id;
+               //save comment
+               foundLink.save();
+               User.links.push(foundLink);
+               User.save();
+               console.log(req.body.info);
+               req.flash("success", "Successfully added comment");
+               res.redirect('/saved');
+           }
+        });
+       }
+   });
+};
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
     User.findOne({

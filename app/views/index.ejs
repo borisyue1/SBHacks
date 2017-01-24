@@ -11,7 +11,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-inverse" id="home-page">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
 	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -19,59 +19,48 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span> 
 	      </button>
-	      <a class="navbar-brand" href="#">SBHacks</a>
+	      <a class="navbar-brand white" href="#">Snappit</a>
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="/">Home</a></li>
-	        <li><a href="#">Search</a></li>
-	        <li><a href="#">Saved Links</a></li> 
-	        <li><a href="#">About</a></li> 
+	        <li class="active"><a class="white" href="/">Home</a></li>
+	        <li><a class="white" href="/search">Search</a></li>
+	        <li><a class="white" href="/saved">Saved Links</a></li> 
+	        <li><a class="white" href="/about">About</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<% if(!currentUser) { %>
-				<li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	        	<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				<li><a class="white" href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+	        	<li><a class="white" href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 	      	<% } else { %>
-	      		<li><a href="#">Hello, <%= currentUser %></a></li>
-	        	<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+	      		<li><a class="white" href="#">Hello, <%= currentUser.name ? currentUser.name : currentUser.username %></a></li>
+	        	<li><a class="white" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 	      	<% } %>
 	      </ul>
 	    </div>
 	  </div>
 	</nav>
 
-
-	<div id="paper-background">
-		<div class="container">
-			<div class="row upload-row">
-				<div class="col upload-pic">
-					<input type="file" id="bannerImg">
-				</div>
-				<div class="col submit">
-					<button class="btn btn-primary" type="submit" onclick="imageToText()">Search for solutions</button>
-				</div>
+	<div class="container">
+		<div class="row">
+			<div class="col header">
+				<span>Snappit</span>
 			</div>
-			<div class="row">
-				<div class="col-md-7 uploaded-pic">
-					<img src="" id="tableBanner">
-				</div>
+		</div>
+		<div class="row">
+			<div class="col header-paragraph">
+				<p>Find online solutions to worksheets and exams.</p>
 			</div>
-
-			<div id="loading" class="row" >
-				<div id="analyze-caption" class="col">
-					<span>Analyzing and searching...</span>
-				</div>
-				<div id="spin-icon" class="col">
-				</div>
+		</div>
+		<div class="row">
+			<div class="col header-button">
+				<a href="/register">Get Started</a>
 			</div>
-			<h1>Results</h1>
-			<ol id="searches"></ol>
 		</div>
 	</div>
+	
 
 	<% include partials/scripts %>	
-
 
 
 </body>

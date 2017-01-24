@@ -3,8 +3,8 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    passport = require('passport');
-    // flash = require('connect-flash');//flash mesages
+    passport = require('passport'),
+    flash = require('connect-flash');//flash mesages
 
 module.exports = function() {
     var app = express();
@@ -25,12 +25,13 @@ module.exports = function() {
 	app.use(passport.initialize());
 	app.use(passport.session());
 	// //flash
-	// app.use(flash());//flash messages
-	// app.use(function(req, res, next){
-	//     res.locals.error = req.flash("error");//flash messages shared among all files
-	//     res.locals.success = req.flash("success");
-	//     next();
-	// });
+	app.use(flash());//flash messages
+	app.use(function(req, res, next){
+		res.locals.currentUser = req.user;
+	    res.locals.error = req.flash("error");//flash messages shared among all files
+	    res.locals.success = req.flash("success");
+	    next();
+	});
 
 	//routes
     app.use(require('../app/routes/index.server.routes.js'));//creates the '/' route

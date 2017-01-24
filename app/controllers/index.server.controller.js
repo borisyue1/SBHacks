@@ -2,7 +2,12 @@
 exports.render = function(req, res) {
     res.render('index', {
         title: 'SBHacks',
-        currentUser: req.user ? req.user.username : '' //check if user logged in
-        // ? operator picks either req.user.username or '' depending on existence
     })
+};
+
+exports.renderSearch = function(req, res) {
+	res.render('search', {
+        title: 'Search',
+
+    });
 };
