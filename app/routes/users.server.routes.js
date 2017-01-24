@@ -28,6 +28,7 @@ router.get('/oauth/facebook', passport.authenticate('facebook', {
 router.get('/oauth/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/login',
     successRedirect: '/search',
+    successFlash: "Successfully logged in!",
     scope:['email']
 }));
 
@@ -38,10 +39,13 @@ router.get('/oauth/twitter', passport.authenticate('twitter', {
 
 router.get('/oauth/twitter/callback', passport.authenticate('twitter', {
     failureRedirect: '/login',
-    successRedirect: '/search'
+    successRedirect: '/search',
+    successFlash: "Successfully logged in!"
 }));
 
 router.get('/saved', users.renderLinks);
 router.post('/saved', users.saveLinks);
+
+router.delete('/saved/:id', users.deleteLink);//CAN'T GET WORKING
 
 module.exports = router;

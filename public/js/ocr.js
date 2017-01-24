@@ -9,7 +9,7 @@ var opts = {
     lines: 10,
     width: 2,
     position: 'relative',
-    color: '#ffe69e'
+    color: 'white'
 };
 var spinner = new Spinner(opts).spin()
 
@@ -159,4 +159,20 @@ function animateSearchList(){
     });
 }
 
+$('#saved-links-container li').each(function(i){
+    var $t = $(this);
+    setTimeout(function(){
+        $t.addClass('list-fade-in');
+    }, (i+1) * 150);
+});
+
+// function deleteLink() { 
+//     $.ajax({
+//     url: '/saved/:' + $('.delete').attr('value').toString(),
+//     type: 'DELETE',
+//     success: function(result) {
+//         alert('hi');
+//         }
+//     });
+// }
 

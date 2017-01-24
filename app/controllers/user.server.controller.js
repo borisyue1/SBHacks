@@ -18,7 +18,7 @@ exports.register = function(req, res) {
         //user object turns password into set of numbers and then stores in database
         if(err){
             req.flash("error", err.message);
-            return res.render("register", {"error": err.message});
+            return res.render("register", {"error": "Something went wrong"});
         } else {
         	passport.authenticate("local")(req, res, function(){//will log the user in with local strategy
 	            req.flash("success", "Welcome, " + newUser.username + "!");
@@ -31,12 +31,12 @@ exports.register = function(req, res) {
 exports.logout = function(req, res) {
     req.logout();//coming from passport
     req.flash("success", "Logged you out!"); //flash message
-    res.redirect("/");
+    res.redirect("back");
 }
 
 exports.renderLinks = function(req, res) {
 	if(!res.locals.currentUser) {
-		req.flash("error", "You must be signed in to access this page.");
+		req.flash("error", "You must be signed in to save links and access this page.");
 		res.redirect('/register')
 	}
 	res.render('saved', {title: "Saved Links"});
@@ -48,31 +48,60 @@ exports.saveLinks = function(req, res) {
 		res.redirect('/register');
 		return
 	}
-	User.findById(req.params.id, function(err, user){
-		console.log(user);
+	User.findById(req.user._id, function(err, user){
        if(err){
            console.log(err);
            res.redirect("/search");
        } else {
-        link.create(req.body.info, function(err, foundLink){
-           if(err){
+       	var name = req.body.name;
+	    var url = req.body.link;
+	    var owner = {
+	        id: req.user._id,
+	        username: req.user.username
+	    }
+	    var newLink = {name: name, link: url, owner: owner};
+	    var newlyCreated = new link(newLink);
+	    newlyCreated.save(function(err){
+	    	if(err){
+	    		console.log(err);
                req.flash("error", "Something went wrong");
-               res.redirect('/search')
+               res.redirect('back')
            } else {
-               //add username and id to comment
-               foundLink.owner.id = req.user._id;
-               //save comment
-               foundLink.save();
-               User.links.push(foundLink);
-               User.save();
-               console.log(req.body.info);
-               req.flash("success", "Successfully added comment");
-               res.redirect('/saved');
+           		newlyCreated.owner.id = req.user._id;
+                //save link
+                user.urls.push(newlyCreated);
+                user.save();
+                req.flash("success", "Successfully added link");
+                // res.render('saved', {links: user.urls});
+                res.redirect('/saved');
            }
-        });
+	    })
        }
    });
 };
+
+exports.deleteLink = function(req, res){
+	var id = req.params.id.replace(':', '');
+	link.findById(id, function(err, foundLink){
+		if(err){
+       		req.flash("error", "Something went wrong");
+           	res.redirect("back");
+       } else {
+       		User.findById(req.user._id, function(err, user){
+       			var index = user.urls.indexOf(foundLink);
+       			user.urls.splice(index, 1);
+       		});
+       }
+	});
+	link.findByIdAndRemove(id, function(err){
+       if(err){
+       		req.flash("error", "Something went wrong");
+           	res.redirect("back");
+       } else {
+       		res.redirect('/');
+       }
+    });
+}
 
 exports.saveOAuthUserProfile = function(req, profile, done) {
     User.findOne({

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= title %></title>
+	<title>Saved Links</title>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,6 @@
 	        <li><a href="/">Home</a></li>
 	        <li><a href="/search">Search</a></li>
 	        <li class="active"><a href="/saved">Saved Links</a></li> 
-	        <li><a href="/about">About</a></li> 
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<% if(!currentUser) { %>
@@ -42,8 +41,8 @@
 	</nav>
 
 	<% include partials/flash %>	
-
-
+<!-- #337ab7
+ -->
 	<div id="paper-background">
 		<div class="container">
 			<div class="row">
@@ -51,6 +50,12 @@
 					<span>My Links</span>
 				</div>
 			</div>
+			<ul id="saved-links-container">
+			<% urls.forEach(function(link) { %>
+				<li class="saved-links"><a class="link-titles" href="<%= link.link %>" target="_blank"><%= link.name %></a>
+					<!-- <a class="delete" href="javascript:deleteLink();" value="<%= link._id %>"><span class="glyphicon glyphicon-trash"></span></a></li> delete not working!! --> 
+			<% }); %>
+			</ul>
 		</div>
 	</div>
 

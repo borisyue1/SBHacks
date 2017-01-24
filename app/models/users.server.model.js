@@ -1,18 +1,16 @@
 var mongoose = require('mongoose'),
 	passportLocalMongoose = require('passport-local-mongoose');
 
+var LinkSchema = require("./link.server.model");
+
 var UserSchema = new mongoose.Schema({
     name: String,
     email: String,
     username: {
-    	type: String,
-    	unique: true //unique username
+    	type: String
     },
     password: String,
-    links: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Link"
-    }],
+    urls: [LinkSchema],
     provider: String,
     providerId: String,
     providerData: {}

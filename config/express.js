@@ -10,7 +10,7 @@ module.exports = function() {
     var app = express();
     //bodyparser 
     app.use(bodyParser.urlencoded({extended: true}));
-	app.use(bodyParser.json());//returns middleware that only parses json
+	// app.use(bodyParser.json());//returns middleware that only parses json
 	//setting up directory access
     app.set('views', './app/views');
 	app.set('view engine', 'ejs');
@@ -28,6 +28,9 @@ module.exports = function() {
 	app.use(flash());//flash messages
 	app.use(function(req, res, next){
 		res.locals.currentUser = req.user;
+		if (res.locals.currentUser) {
+			res.locals.urls = req.user.urls;
+		}
 	    res.locals.error = req.flash("error");//flash messages shared among all files
 	    res.locals.success = req.flash("success");
 	    next();
