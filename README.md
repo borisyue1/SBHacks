@@ -5,7 +5,7 @@ for potential solutions to worksheet/exam problems that they are stuck on. Users
 get stored in the database.
 Working link: https://snappit-borisyue.herokuapp.com/
 
-##APIs used
+## APIs used
 * Tesseract OCR
 * Bing Web Search
 
